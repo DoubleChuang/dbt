@@ -30,8 +30,8 @@ var CmdMap = map[string]Cmd{
 
 	"mountdbgfs": {
 		RawCmd: "mount -t debugfs none /sys/kernel/debug",
-        Desc:   "Mount the debugfs filesystem",
-	}
+		Desc:   "Mount the debugfs filesystem",
+	},
 }
 
 func completer(d prompt.Document) []prompt.Suggest {
