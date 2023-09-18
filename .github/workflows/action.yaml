@@ -8,22 +8,44 @@ permissions:
     packages: write
 
 jobs:
-  releases-matrix:
-    name: Release Go Binary
+  releases-amd64:
+    name: Release Go AMD64 Binary
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
         goos: [linux, darwin]
-        goarch: [amd64, arm64, arm]
-        exclude:
-          - goarch: arm
-            goos: "darwin"
+        # goarch: [arm64, arm]
+        # goarm: [5, 6, 7]
+        # exclude:
+        #   - goarch: arm
+        #     goos: "darwin"
     steps:
     - uses: actions/checkout@v3
     - uses: wangyoucao577/go-release-action@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: ${{ matrix.goos }}
-        goarch: ${{ matrix.goarch }}
+        goarch: amd64
         extra_files: LICENSE README.md
+    
+  releases-arm:
+    name: Release Go ARM Binary
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # goos: [linux, darwin]
+        goarch: [arm64, arm]
+        goarm: [5, 6, 7]
+        # exclude:
+        #   - goarch: arm
+        #     goos: "darwin"
+    steps:
+    - uses: actions/checkout@v3
+    - uses: wangyoucao577/go-release-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        goos: linux
+        goarch: ${{ matrix.goarch }}
+        goarm: ${{ matrix.goarm }}
+        extra_files: LICENSE README.md
+      
