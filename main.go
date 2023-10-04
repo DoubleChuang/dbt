@@ -32,6 +32,11 @@ var CmdMap = map[string]Cmd{
 		RawCmd: "mount -t debugfs none /sys/kernel/debug",
 		Desc:   "Mount the debugfs filesystem",
 	},
+
+	"write_eeprom": {
+		RawCmd: "write_eeprom.sh /tmp/eeprom",
+		Desc: "Write the information from /tmp/eeprom folder to EEROM",
+	},
 }
 
 func completer(d prompt.Document) []prompt.Suggest {
